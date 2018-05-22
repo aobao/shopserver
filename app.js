@@ -6,9 +6,14 @@ var multer=require('multer')
 var session=require('express-session')
 var svg=require('svg-captcha')
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var product = require('./routes/product');
+var comment = require('./routes/comment');
+var shopcar = require('./routes/shopcar');
+var address=require('./routes/address');
+var book=require('./routes/book')
 
-var indexRouter = require('./routes/admin/index');
-var usersRouter = require('./routes/admin/users');
 var app = express();
 
 // view engine setup
@@ -25,9 +30,17 @@ app.use(session({
 }))
 
 
-app.use('/amdin', indexRouter);
-app.use('/admin', usersRouter);
-
+app.use('/api/amdin', indexRouter);
+app.use('/api/poduct', product);
+app.use('/api/comment',comment);
+app.use('/api/shopcar', shopcar);
+app.use('/api/address', address);
+app.use('/api/book',book);
+app.use('/api/user',usersRouter);
+app.get('/api/test',function(req,res){
+  res.send('nde');
+  console.log(1);
+})
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
