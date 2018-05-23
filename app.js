@@ -13,7 +13,7 @@ var comment = require('./routes/comment');
 var shopcar = require('./routes/shopcar');
 var address=require('./routes/address');
 var book=require('./routes/book')
-
+var coustmer=require('./routes/coustmer');
 var app = express();
 
 // view engine setup
@@ -37,6 +37,7 @@ app.use('/api/shopcar', shopcar);
 app.use('/api/address', address);
 app.use('/api/book',book);
 app.use('/api/user',usersRouter);
+app.use('/api/coustmer',coustmer);
 var upload = multer({ dest: 'uploads/' })
 app.use('/api/upload',upload.array('/product'),function(req,res,next){
   console.log(req.files);
