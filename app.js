@@ -37,6 +37,10 @@ app.use('/api/shopcar', shopcar);
 app.use('/api/address', address);
 app.use('/api/book',book);
 app.use('/api/user',usersRouter);
+var upload = multer({ dest: 'uploads/' })
+app.use('/api/upload',upload.array('/product'),function(req,res,next){
+  console.log(req.files);
+})
 app.get('/api/test',function(req,res){
   res.send('nde');
   console.log(1);
