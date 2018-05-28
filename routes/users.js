@@ -29,7 +29,6 @@ router.post('/', function(req, res) {
         }
     })
 });
-
 //验证码
 router.get('/captcha', function (req, res) {
     var code = svgCaptcha.createMathExpr({
@@ -43,6 +42,23 @@ router.get('/captcha', function (req, res) {
     res.type('svg'); // 使用ejs等模板时如果报错 res.type('html')
     res.status(200).send(code.data);
 });
+
+router.get("/pass",function (req,res) {
+    sql("select * from admin ",function (err,data) {
+        res.send(data)
+    })
+})
+router.post("/checkpass",function (req,res) {
+    let oldpass=req.body.oldpass;
+    let newpass=req.body.newpass;
+    sql(`update admin set pass=${newpass} where pass=${oldpass}`,function (err,data) {
+        if(data.affectedRows=="1"){
+            res.send("ok")
+        }else{
+            res.send("no")
+        }
+    })
+})
 
 
 
