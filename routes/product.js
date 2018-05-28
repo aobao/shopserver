@@ -28,10 +28,10 @@ router.post('/add',function(req,res){
   img.forEach(val=>{
       if(val.response){
           let newpath='/'+Date.now()+val.name;
-          fs.renameSync(val.response,'./public/images'+newpath);
-          str.push({name:val.name,url:newpath})
+          fs.renameSync(val.response,'./public/img'+newpath);
+          str.push({name:val.name,url:'/api'+newpath})
       }else{
-          str.push({name:val.name,url:val.url});
+          str.push({name:val.name,url:'/api'+val.url});
       }
   })
   img=JSON.stringify(str);  
@@ -66,10 +66,10 @@ router.post('/edit',function(req,res){
   img.forEach(val=>{
       if(val.response){
           let newpath='/'+Date.now()+val.name;
-          fs.renameSync(val.response,'./public'+newpath);
-          str.push({name:val.name,url:newpath})
+          fs.renameSync(val.response,'./public/img'+newpath);
+          str.push({name:val.name,url:'/api'+newpath})
       }else{
-          str.push({name:val.name,url:val.url});
+          str.push({name:val.name,url:'/api'+val.url});
       }
   })
   img=JSON.stringify(str);   
