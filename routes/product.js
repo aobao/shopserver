@@ -105,6 +105,12 @@ router.get('/detail',function(req,res){
        res.json(data);
    })
 })
+router.post('/baby',function(req,res){
+    let data=req.body.data;
+    console.log(1);
+    console.log(data);
+    res.send('1')
+})
 router.get('/', function(req, res, next) {
     sql(`select * from product `,function(err,data){
         res.send(data);
