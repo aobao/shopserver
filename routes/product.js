@@ -28,14 +28,13 @@ router.post('/add',function(req,res){
   img.forEach(val=>{
       if(val.response){
           let newpath='/'+Date.now()+val.name;
-          fs.renameSync(val.response,'./public/images'+newpath);
-          str.push({name:val.name,url:newpath})
+          fs.renameSync(val.response,'./public/img'+newpath);
+          str.push({name:val.name,url:'/api'+newpath})
       }else{
-          str.push({name:val.name,url:val.url});
+          str.push({name:val.name,url:'/api'+val.url});
       }
   })
   img=JSON.stringify(str);  
-    
     sql(`insert into product(title,name,con,econ,img,offprice,price,amount,degra,sap,type) 
     values('${title}','${name}','${con}','${econ}','${img}','${offprice}','${price}','${amount}','${degra}','${sap}','${type}')`,function(err,mes){
         if(err) throw err;
@@ -66,8 +65,8 @@ router.post('/edit',function(req,res){
   img.forEach(val=>{
       if(val.response){
           let newpath='/'+Date.now()+val.name;
-          fs.renameSync(val.response,'./public'+newpath);
-          str.push({name:val.name,url:newpath})
+          fs.renameSync(val.response,'./public/img'+newpath);
+          str.push({name:val.name,url:'/api'+newpath})
       }else{
           str.push({name:val.name,url:val.url});
       }
@@ -93,6 +92,25 @@ router.get('/delete',function(req,res){
         }
     })
 });
+
+router.get('/allproduct',function(req,res){
+    sql(`select * from product where id>0`,function(err,data){
+        res.json(data);
+    })
+})
+router.get('/detail',function(req,res){
+   let id=req.query.id;
+   sql(`select * from product where id=${id}`,function(err,data){
+       if(err) throw err;
+       res.json(data);
+   })
+})
+router.post('/baby',function(req,res){
+    let data=req.body.data;
+    console.log(1);
+    console.log(data);
+    res.send('1')
+})
 router.get('/', function(req, res, next) {
     sql(`select * from product `,function(err,data){
         res.send(data);
