@@ -42,7 +42,6 @@ router.get('/captcha', function (req, res) {
     res.type('svg'); // 使用ejs等模板时如果报错 res.type('html')
     res.status(200).send(code.data);
 });
-
 router.get("/pass",function (req,res) {
     sql("select * from admin ",function (err,data) {
         res.send(data)
