@@ -23,6 +23,16 @@ router.post('/order',function(req,res){
     // console.log(id)
    
 })
+router.post('/myorder',function(req,res){
+    let user=req.body.data;
+    // sql(`select id from user where name='${user}'`,function(err,data){
+        sql(`select * from shopcar where cid='${user}' `,function(err,data){
+            res.json(data);  
+       })
+    // })
+    // console.log(id)
+   
+})
 router.post('/addshop',function(req,res){
     let id=req.body.id;
     let amount=req.body.amount;
