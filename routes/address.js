@@ -3,7 +3,7 @@ var router = express.Router();
 var sql=require('../libs/sql')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     sql("select * from address",function (err,data) {
         res.send(data);
     })
@@ -19,5 +19,23 @@ router.get('/del', function(req, res) {
         }
     })
 });
+
+router.post("/addindex",function (req,res) {
+    let name=req.body.name
+    let phone=req.body.phone
+    let area=req.body.area
+    let dareas=req.body.dareas
+    let coding=req.body.coding
+    sql(`insert into address (name,phone,area,dareas,coding) values ("${name}","${phone}","${area}","${dareas}","${coding}")`,function (err,data) {
+        if(data.affectedRows){
+            let ids=data.insertId
+            res.send(`${ids}`)
+            return
+        }else{
+            res.send("on")
+            return
+        }
+    })
+})
 
 module.exports = router;
