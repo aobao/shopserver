@@ -3,10 +3,14 @@ var router = express.Router();
 var sql=require('../libs/sql')
 
 /* GET home page. */
-router.get('/', function(req, res) {
-    sql("select * from address",function (err,data) {
-        res.send(data);
+router.post('/', function(req, res) {
+    let user=req.body.user;
+    sql(`select id from user where name='${user}'`,function(a,row){
+        sql(`select * from address where pid='${row[0].id}'`,function (err,data) {
+            res.send(data);
+        })
     })
+    
 });
 
 router.get('/del', function(req, res) {
@@ -26,7 +30,10 @@ router.post("/addindex",function (req,res) {
     let area=req.body.area
     let dareas=req.body.dareas
     let coding=req.body.coding
-    sql(`insert into address (name,phone,area,dareas,coding) values ("${name}","${phone}","${area}","${dareas}","${coding}")`,function (err,data) {
+    let user=req.body.user
+    sql(`select id from user where name='${user}'`,function(a,row){
+       
+    sql(`insert into address (name,phone,area,dareas,coding,pid) values ("${name}","${phone}","${area}","${dareas}","${coding}","${row[0].id}")`,function (err,data) {
         if(data.affectedRows){
             let ids=data.insertId
             res.send(`${ids}`)
@@ -36,6 +43,7 @@ router.post("/addindex",function (req,res) {
             return
         }
     })
+ })
 })
 
 module.exports = router;
