@@ -105,8 +105,8 @@ router.get('/detail',function(req,res){
        res.json(data);
    })
 })
-router.post('/baby',function(req,res){
-    let data=req.body.data;
+router.post('/my',function(req,res){
+    let data=req.body;
     console.log(1);
     console.log(data);
     res.send('1')
