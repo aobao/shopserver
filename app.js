@@ -24,6 +24,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api',express.static(path.join(__dirname, 'public/img')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(session({
   secret: 'keyboard cat',
